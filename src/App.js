@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-import "./App.css";
 import LogIn from "./components/auth/LogIn";
 import Player from "./components/screen/Player";
 import { getTokenFromUrl } from "./components/spotify";
@@ -9,7 +8,7 @@ import { useStateValue } from "./context/StateProvider";
 const s = new SpotifyWebApi();
 
 function App() {
-  const [{ user, token ,playlists }, dispatch] = useStateValue();
+  const [{  token  }, dispatch] = useStateValue();
 
   useEffect(() => {
     // Set token
@@ -50,8 +49,20 @@ function App() {
       })
     );
 
+    s.getMyTopArtists().then((response) =>
+    dispatch({
+      type: "SET_TOP_ARTISTS",
+      top_artists: response,
+    })
+  );
+
+  dispatch({
+    type: "SET_SPOTIFY",
+    spotify: s,
+  });
+
     }
-  }, []);
+  }, [token,dispatch]);
 
   return (
     <div className="app">

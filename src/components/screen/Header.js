@@ -3,6 +3,7 @@ import "../../style/Header.css";
 import { Avatar } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStateValue } from './../../context/StateProvider';
+
 const Header = ({spotify}) => {
     const [{ user }, dispatch] = useStateValue();
   return (
